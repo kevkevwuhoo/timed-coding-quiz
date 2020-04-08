@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0 auto;
+    text-align: center;
+}
+
+header {
+    padding: 20px;
+    position: relative;
+}
+
+h1 p {
+    margin: 20px;
+}
+
+ul {
+    margin: 20px;
+    list-style: none;
+}
+
+button {
+    padding: 10px;
+}
+
+#view-highscores {
+    float: left;
+}
+
+#quiz-timer {
+    float: right;
+}
+
+.hide {
+    display: none;
+}

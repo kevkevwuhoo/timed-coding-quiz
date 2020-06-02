@@ -14,7 +14,7 @@ var submitButton = document.querySelector("#submit-initials");
 var quizScoresEl = document.querySelector("#quiz-highscores-container");
 var quizScoresList = document.querySelector("#highscores-list");
 var backButton = document.querySelector("#back-button");
-var clearButton = document.querySelector("#clear-button");
+var clearButton = document.querySelector("#clear-highscores");
 
 // global variables
 var quizTime;
@@ -206,6 +206,11 @@ function endQuiz() {
   // if play again button is pressed, start the game again
   // hide the high scores screen, show the quiz welcome screen
   backButton.addEventListener("click", init);
+  // if clear button is pressed, delete local storage
+  clearButton.addEventListener("click", () => {
+    localStorage.clear();
+    renderHighScores();
+  });
 }
 
 // show welcome screen

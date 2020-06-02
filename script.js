@@ -71,9 +71,12 @@ var quizQuestions = [
 // function init
 // initializes global variables
 function init() {
-  quizTime = 75;
-  questionNum = 0;
+  quizWelcomeEl.classList.remove("hide");
   timerEl.classList.remove("hide");
+  viewScoresButton.classList.remove("hide");
+  quizContainerEl.classList.add("hide");
+  quizEndEl.classList.add("hide");
+  quizScoresEl.classList.add("hide");
 }
 
 // function startQuiz to start the quiz for the user
@@ -82,8 +85,10 @@ function startQuiz(event) {
   // do not reload on button click
   event.preventDefault();
   // start timer at 75, start at first question
-  init();
+  quizTime = 75;
 
+  // remove see high scores button during quiz
+  viewScoresButton.classList.add("hide");
   // remove the welcome screen
   // show the quiz
   quizWelcomeEl.classList.add("hide");
@@ -101,12 +106,11 @@ function startQuiz(event) {
       clearInterval(timerInterval);
     }
   }, 1000);
-  renderQuestions(questionNum);
+  renderQuestions(0);
 }
 
 // function renderQuestions to show and update the questions on the screen for the user
 function renderQuestions(currentQuestionNum) {
-  console.log("questionnum", questionNum);
   console.log("currentquestionnum", currentQuestionNum);
   // check the question number
   if (currentQuestionNum === quizQuestions.length) {
@@ -187,18 +191,19 @@ function endQuiz() {
   quizContainerEl.classList.add("hide");
   quizEndEl.classList.remove("hide");
   // when submit button is pressed,
+  // store user input in the form in local storage
+  // key value pair: initials, score
   submitButton.addEventListener("click", function (event) {
     event.preventDefault();
     var userInitials = initialsInput.value;
     localStorage.setItem(userInitials, score);
+    // switch to high scores screen
     quizEndEl.classList.add("hide");
     renderHighScores();
   });
-  // store user input in the form in local storage
-  // key value pair: initials, score
-  // switch to high scores screen
   // if play again button is pressed, start the game again
   // hide the high scores screen, show the quiz welcome screen
+  backButton.addEventListener("click", startQuiz);
 }
 
 // when start quiz button is pressed

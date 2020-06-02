@@ -14,16 +14,20 @@ header {
     position: relative;
 }
 
-h1 p {
+main {
+    clear: both;
+}
+
+main h1 p {
     margin: 20px;
 }
 
-ul {
+#quiz-choices {
     margin: 20px;
-    list-style: none;
 }
 
 button {
+    margin: 10px;
     padding: 10px;
 }
 

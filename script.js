@@ -182,6 +182,14 @@ function renderHighScores() {
     highScoreListItem.textContent = `${quizScore.initials}, ${quizScore.score}`;
     quizScoresList.append(highScoreListItem);
   });
+  // if play again button is pressed, start the game again
+  // hide the high scores screen, show the quiz welcome screen
+  backButton.addEventListener("click", init);
+  // if clear button is pressed, delete local storage
+  clearButton.addEventListener("click", () => {
+    localStorage.clear();
+    renderHighScores();
+  });
 }
 // function endQuiz to end the quiz and allow the user to enter their initials and highscore
 function endQuiz() {
@@ -203,14 +211,6 @@ function endQuiz() {
     quizEndEl.classList.add("hide");
     renderHighScores();
   });
-  // if play again button is pressed, start the game again
-  // hide the high scores screen, show the quiz welcome screen
-  backButton.addEventListener("click", init);
-  // if clear button is pressed, delete local storage
-  clearButton.addEventListener("click", () => {
-    localStorage.clear();
-    renderHighScores();
-  });
 }
 
 // show welcome screen
@@ -218,3 +218,8 @@ init();
 // when start quiz button is pressed
 // start the quiz
 startButton.addEventListener("click", startQuiz);
+viewScoresButton.addEventListener("click", () => {
+  quizWelcomeEl.classList.add("hide");
+  viewScoresButton.classList.add("hide");
+  renderHighScores();
+});

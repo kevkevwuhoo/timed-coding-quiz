@@ -73,6 +73,7 @@ var quizQuestions = [
 function init() {
   quizTime = 75;
   questionNum = 0;
+  timerEl.classList.remove("hide");
 }
 
 // function startQuiz to start the quiz for the user
@@ -156,13 +157,43 @@ function renderQuestions(currentQuestionNum) {
   }
 }
 
+function renderHighScores() {
+  quizScoresEl.classList.remove("hide");
+  // get all the scores from localStorage
+  var highScores = [];
+  var keys = Object.keys(localStorage);
+  for (var i = 0; i < keys.length; i++) {
+    var initials = keys[i];
+    var score = localStorage.getItem(initials);
+    highScores.push({ initials: initials, score: score });
+  }
+  // sort array, descending order
+  highScores.sort((a, b) => {
+    return b.score - a.score;
+  });
+  highScores.forEach((quizScore) => {
+    var highScoreListItem = document.createElement("li");
+    highScoreListItem.textContent = `${quizScore.initials}, ${quizScore.score}`;
+    quizScoresList.append(highScoreListItem);
+  });
+}
 // function endQuiz to end the quiz and allow the user to enter their initials and highscore
 function endQuiz() {
   // stop the timer and record the time left (score)
+  timerEl.classList.add("hide");
   var score = quizTime;
   timerEl.textContent = score;
   // switch to the submit score screen
+  quizContainerEl.classList.add("hide");
+  quizEndEl.classList.remove("hide");
   // when submit button is pressed,
+  submitButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    var userInitials = initialsInput.value;
+    localStorage.setItem(userInitials, score);
+    quizEndEl.classList.add("hide");
+    renderHighScores();
+  });
   // store user input in the form in local storage
   // key value pair: initials, score
   // switch to high scores screen

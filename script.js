@@ -72,8 +72,8 @@ var quizQuestions = [
 // initializes global variables
 function init() {
   quizWelcomeEl.classList.remove("hide");
-  timerEl.classList.remove("hide");
   viewScoresButton.classList.remove("hide");
+  timerEl.classList.add("hide");
   quizContainerEl.classList.add("hide");
   quizEndEl.classList.add("hide");
   quizScoresEl.classList.add("hide");
@@ -86,6 +86,7 @@ function startQuiz(event) {
   event.preventDefault();
   // start timer at 75, start at first question
   quizTime = 75;
+  timerEl.classList.remove("hide");
 
   // remove see high scores button during quiz
   viewScoresButton.classList.add("hide");
@@ -203,9 +204,11 @@ function endQuiz() {
   });
   // if play again button is pressed, start the game again
   // hide the high scores screen, show the quiz welcome screen
-  backButton.addEventListener("click", startQuiz);
+  backButton.addEventListener("click", init);
 }
 
+// show welcome screen
+init();
 // when start quiz button is pressed
 // start the quiz
 startButton.addEventListener("click", startQuiz);

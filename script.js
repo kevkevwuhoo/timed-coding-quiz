@@ -163,6 +163,7 @@ function renderQuestions(currentQuestionNum) {
 }
 
 function renderHighScores() {
+  quizScoresList.innerHTML = "";
   quizScoresEl.classList.remove("hide");
   // get all the scores from localStorage
   var highScores = [];

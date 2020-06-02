@@ -85,7 +85,7 @@ function startQuiz(event) {
   // do not reload on button click
   event.preventDefault();
   // start timer at 75, start at first question
-  quizTime = 30;
+  quizTime = 75;
   timerEl.classList.remove("hide");
 
   // remove see high scores button during quiz

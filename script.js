@@ -85,7 +85,7 @@ function startQuiz(event) {
   // do not reload on button click
   event.preventDefault();
   // start timer at 75, start at first question
-  quizTime = 75;
+  quizTime = 30;
   timerEl.classList.remove("hide");
 
   // remove see high scores button during quiz
@@ -97,15 +97,14 @@ function startQuiz(event) {
   // start the timer
   var timerInterval = setInterval(function () {
     quizTime--;
-    timerEl.textContent = quizTime;
     // if the timer reaches 0 or the player finishes the quiz
     // clear the interval
     if (quizTime <= 0) {
+      clearInterval(timerInterval);
       // prevent negative timer number
       quizTime = 0;
-      endQuiz();
-      clearInterval(timerInterval);
     }
+    timerEl.textContent = quizTime;
   }, 1000);
   renderQuestions(0);
 }
@@ -142,7 +141,11 @@ function renderQuestions(currentQuestionNum) {
           quizGradingEl.textContent = "Correct!";
         } else {
           quizGradingEl.textContent = "Wrong!";
-          quizTime -= 10;
+          if (quizTime > 10) {
+            quizTime -= 10;
+          } else {
+            quizTime = 0;
+          }
         }
         // show correct or wrong for 3 seconds only
         var timerTimeout = setTimeout(function () {
@@ -163,6 +166,7 @@ function renderQuestions(currentQuestionNum) {
 }
 
 function renderHighScores() {
+  // empty high scores list before rendering scores
   quizScoresList.innerHTML = "";
   quizScoresEl.classList.remove("hide");
   // get all the scores from localStorage
